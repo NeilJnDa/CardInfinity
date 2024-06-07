@@ -8,25 +8,22 @@ using MyBox;
 public class CardGenerator : MonoBehaviour
 {
     [SerializeField]
+    private Card cardPrefab;
+    [SerializeField]
     [ReadOnly]
     private bool waitingForResponse = false;
 
     public LLMClient llm;
-    [TextArea(3,5)]
+    [TextArea(3, 5)]
     public string command = "";
 
-    public string result = "";
-    public string result2 = "";
+    [SerializeField]
+    [TextArea(3, 5)]
+    private string result = "";
     [ButtonMethod]
     private void GenerateRequest()
     {
-        _ = llm.Chat(command, OnAIReturnToken, OnAIComplete);
-        waitingForResponse = true;
-    }
-    [ButtonMethod]
-    private void GenerateRequest2()
-    {
-        _ = llm.Chat(command, (text)=>result2 = text, OnAIComplete);
+        _ = llm.Chat(command, OnAIReturnToken, OnAIComplete, false);
         waitingForResponse = true;
     }
 
@@ -37,7 +34,16 @@ public class CardGenerator : MonoBehaviour
     private void OnAIComplete()
     {
         waitingForResponse = false;
+        result = result.Substring(result.IndexOf('{'), result.LastIndexOf('}') - result.IndexOf('{') + 1);
+
+        var cardInfo = JsonUtility.FromJson<CardInfo>(result);
+        if (cardInfo == null)
+        {
+            Debug.LogWarning("From Json Failed");
+        }
+        var card = Instantiate(cardPrefab);
+        card.Initialize(cardInfo);
     }
 
-   
+
 }

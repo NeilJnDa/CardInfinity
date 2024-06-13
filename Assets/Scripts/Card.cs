@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using MyBox;
+using UnityEditor;
 
 public class Card : MonoBehaviour
 {
     [SerializeField]
     [ReadOnly]
+    private bool pickedUp = false;
+    [SerializeField]
+    [ReadOnly]
     private CardInfo cardInfo;
+    [SerializeField]
+    [ReadOnly]
+    private CardSlot currentSlot = null;
+    [SerializeField]
+    [ReadOnly]
+    private Camera mainCamera;
 
     [SerializeField]
     private TMP_Text nameText;
@@ -17,22 +27,49 @@ public class Card : MonoBehaviour
     [SerializeField]
     private TMP_Text descriptionText;
 
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
     public void Initialize(CardInfo cardInfo)
     {
-        this.cardInfo = cardInfo;
-        nameText.text = cardInfo.name;
-        hpText.text = cardInfo.health.ToString();
-        descriptionText.text = cardInfo.description;
+        if (cardInfo != null)
+        {
+            this.cardInfo = cardInfo;
+            nameText.text = cardInfo.name;
+            hpText.text = cardInfo.health.ToString();
+            descriptionText.text = cardInfo.description;
+        }
+
     }
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
+    {
+        if (pickedUp)
+        {
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction * 10f);
+            float enter = 0.0f;
+            var res = GameManager.Instance.CardHoverPlane.Raycast(ray, out enter);
+            Vector3 hitPoint = ray.GetPoint(enter);
+
+            this.transform.position = hitPoint;
+        }
+    }
+    public void EnterSlot(CardSlot slot)
+    {
+        slot.CardEnter();
+    }
+    public void ExitSlot()
     {
 
     }
-
-    // Update is called once per frame
-    void Update()
+    public void PickUp()
     {
-
+        pickedUp = true;
     }
+    public void Drop()
+    {
+        pickedUp = false;
+    }
+
 }

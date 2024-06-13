@@ -5,10 +5,14 @@ using LLMUnity;
 using MyBox;
 
 [ExecuteInEditMode]
-public class CardGenerator : MonoBehaviour
+public class CardMerger : MonoBehaviour
 {
     [SerializeField]
-    private Card cardPrefab;
+    private CardInfo card1;
+
+    [SerializeField]
+    private CardInfo card2;
+
     [SerializeField]
     [ReadOnly]
     private bool waitingForResponse = false;
@@ -35,15 +39,5 @@ public class CardGenerator : MonoBehaviour
     {
         waitingForResponse = false;
         result = Utils.ExtractJSONString(result);
-
-        var cardInfo = JsonUtility.FromJson<CardInfo>(result);
-        if (cardInfo == null)
-        {
-            Debug.LogWarning("From Json Failed");
-        }
-        var card = Instantiate(cardPrefab);
-        card.Initialize(cardInfo);
     }
-
-
 }

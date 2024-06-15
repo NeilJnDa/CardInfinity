@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using MyBox;
 using UnityEditor;
+using System;
 
 public class Card : MonoBehaviour
 {
@@ -16,10 +17,9 @@ public class Card : MonoBehaviour
     [SerializeField]
     [ReadOnly]
     private CardSlot currentSlot = null;
-    [SerializeField]
-    [ReadOnly]
-    private Camera mainCamera;
 
+
+    [Header("Reference")]
     [SerializeField]
     private TMP_Text nameText;
     [SerializeField]
@@ -27,9 +27,20 @@ public class Card : MonoBehaviour
     [SerializeField]
     private TMP_Text descriptionText;
 
+    [Foldout("Local Cache", true)]
+    [SerializeField]
+    [ReadOnly]
+    private Camera mainCamera;
+    [SerializeField]
+    [ReadOnly]
+    private Rigidbody mRigidBody;
+    [SerializeField]
+    [ReadOnly]
+    private Vector3 targetPosition;
     private void Start()
     {
         mainCamera = Camera.main;
+        mRigidBody = GetComponent<Rigidbody>();
     }
     public void Initialize(CardInfo cardInfo)
     {
@@ -42,27 +53,14 @@ public class Card : MonoBehaviour
         }
 
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        if (pickedUp)
+        if(pickedUp)
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction * 10f);
-            float enter = 0.0f;
-            var res = GameManager.Instance.CardHoverPlane.Raycast(ray, out enter);
-            Vector3 hitPoint = ray.GetPoint(enter);
-
-            this.transform.position = hitPoint;
+            mRigidBody.MovePosition(targetPosition);           
         }
     }
-    public void EnterSlot(CardSlot slot)
-    {
-        slot.CardEnter();
-    }
-    public void ExitSlot()
-    {
 
-    }
     public void PickUp()
     {
         pickedUp = true;
@@ -72,4 +70,12 @@ public class Card : MonoBehaviour
         pickedUp = false;
     }
 
+    /// <summary>
+    /// Called every frame
+    /// </summary>
+    /// <param name="hoveringSlot"></param>
+    public void SetMoveTarget(Vector3 position)
+    {
+        targetPosition = position;
+    }
 }

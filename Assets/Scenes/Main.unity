@@ -668,7 +668,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdingCard: {fileID: 0}
+  pickableLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  slotLayers:
+    serializedVersion: 2
+    m_Bits: 128
   mainCamera: {fileID: 0}
+  hoveringSlot: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,9 +943,9 @@ MonoBehaviour:
   chatTemplate: phi-3
   grammarString: 
   numThreads: -1
-  numGPULayers: 0
+  numGPULayers: 30
   parallelPrompts: -1
-  debug: 0
+  debug: 1
   asynchronousStartup: 0
   remote: 0
   killExistingServersOnStart: 1
@@ -1099,7 +1106,7 @@ PrefabInstance:
     - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
         type: 3}

@@ -8,10 +8,25 @@ using MyBox;
 public class CardMerger : MonoBehaviour
 {
     [SerializeField]
-    private CardInfo card1;
+    private Card cardPrefab;
+    [SerializeField]
+    private CardSlot slot1;
+    [SerializeField] 
+    private CardSlot slot2;
+    [SerializeField] 
+    private CardSlot outputSlot;
 
     [SerializeField]
-    private CardInfo card2;
+    [ReadOnly]
+    private Card card1;
+
+    [SerializeField]
+    [ReadOnly]
+    private Card card2;
+
+    [SerializeField]
+    [ReadOnly]
+    private Card outputCard;
 
     [SerializeField]
     [ReadOnly]
@@ -27,7 +42,13 @@ public class CardMerger : MonoBehaviour
     [ButtonMethod]
     private void GenerateRequest()
     {
-        _ = llm.Chat(command, OnAIReturnToken, OnAIComplete, false);
+        outputCard = null;
+        result = "";
+        card1 = slot1.card;
+        card2 = slot2.card;
+        string completeCommand = command + card1.CardInfo.ToJson() + card2.CardInfo.ToJson();
+        Debug.Log(completeCommand);
+        _ = llm.Chat(completeCommand, OnAIReturnToken, OnAIComplete, false);
         waitingForResponse = true;
     }
 
@@ -38,6 +59,15 @@ public class CardMerger : MonoBehaviour
     private void OnAIComplete()
     {
         waitingForResponse = false;
-        result = Utils.ExtractJSONString(result);
+        var json = Utils.ExtractJSONString(result);
+
+        var cardInfo = JsonUtility.FromJson<CardInfo>(json);
+        if (cardInfo.Equals(default(CardInfo)))
+        {
+            Debug.LogWarning("From Json Failed");
+        }
+        var card = Instantiate(cardPrefab, outputSlot.transform.position, cardPrefab.transform.rotation);
+        card.Initialize(cardInfo);
+        outputCard = card;
     }
 }

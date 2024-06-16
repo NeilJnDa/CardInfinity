@@ -34,10 +34,10 @@ public class CardGenerator : MonoBehaviour
     private void OnAIComplete()
     {
         waitingForResponse = false;
-        result = Utils.ExtractJSONString(result);
+        var json = Utils.ExtractJSONString(result);
 
-        var cardInfo = JsonUtility.FromJson<CardInfo>(result);
-        if (cardInfo == null)
+        var cardInfo = JsonUtility.FromJson<CardInfo>(json);
+        if (cardInfo.Equals(default(CardInfo)))
         {
             Debug.LogWarning("From Json Failed");
         }

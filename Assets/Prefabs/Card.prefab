@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9003b01d53b956b4bbfd89c4c064d003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lerpSpeed: 11
   pickedUp: 0
   cardInfo:
     name: 

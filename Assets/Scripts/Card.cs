@@ -9,14 +9,25 @@ using System;
 public class Card : MonoBehaviour
 {
     [SerializeField]
+    private float lerpSpeed = 3f;
+    [SerializeField]
     [ReadOnly]
     private bool pickedUp = false;
     [SerializeField]
     [ReadOnly]
     private CardInfo cardInfo;
+    public CardInfo CardInfo { get { return cardInfo; }}
+
     [SerializeField]
     [ReadOnly]
     private CardSlot currentSlot = null;
+    /// <summary>
+    /// When it is moving, which slot is overlapped and could be placed, but not yet placed.
+    /// </summary>
+    [SerializeField]
+    [ReadOnly]
+    private CardSlot overlappingSlot = null;
+
 
 
     [Header("Reference")]
@@ -44,38 +55,58 @@ public class Card : MonoBehaviour
     }
     public void Initialize(CardInfo cardInfo)
     {
-        if (cardInfo != null)
-        {
-            this.cardInfo = cardInfo;
-            nameText.text = cardInfo.name;
-            hpText.text = cardInfo.health.ToString();
-            descriptionText.text = cardInfo.description;
-        }
-
+        this.cardInfo = cardInfo;
+        nameText.text = cardInfo.name;
+        hpText.text = cardInfo.health.ToString();
+        descriptionText.text = cardInfo.description;
+        
     }
     private void FixedUpdate()
     {
         if(pickedUp)
         {
-            mRigidBody.MovePosition(targetPosition);           
+            mRigidBody.MovePosition(Vector3.Lerp(this.transform.position, targetPosition, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));        
         }
     }
 
     public void PickUp()
     {
         pickedUp = true;
+        overlappingSlot = null;
+        currentSlot?.CardRemoved();
+        currentSlot = null;
     }
     public void Drop()
     {
         pickedUp = false;
+        if (overlappingSlot)
+        {
+            overlappingSlot.CardPlaced(this);
+            this.currentSlot = overlappingSlot;
+            overlappingSlot = null;
+        }
     }
 
-    /// <summary>
-    /// Called every frame
-    /// </summary>
-    /// <param name="hoveringSlot"></param>
     public void SetMoveTarget(Vector3 position)
     {
         targetPosition = position;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var slot = other.GetComponent<CardSlot>(); 
+        if(slot != null && slot.receiveCard)
+        {
+            overlappingSlot = slot;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        var slot = other.GetComponent<CardSlot>();
+        if (slot != null && overlappingSlot == slot)
+        {
+            overlappingSlot = null;
+        }
     }
 }

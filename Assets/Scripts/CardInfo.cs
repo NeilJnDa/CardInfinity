@@ -4,9 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class CardInfo
+public struct CardInfo
 {
     public string name;
     public int health;
     public string description;
+
+    public string ToJson()
+    {
+        return JsonUtility.ToJson(this);
+    }
 }

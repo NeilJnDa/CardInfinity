@@ -41,13 +41,21 @@ public class MouseManager : MonoBehaviour
         if (Input.GetMouseButton(0) && holdingCard != null)
         {
             var slotTransform = CastRayFromMouse(slotLayers);
+
+            //  Update the hoeverSlot if exist
             if (slotTransform != null)
             {
-                //  Snap to slot
-                //  Update the hoeverSlot
-                if (hoveringSlot == null || slotTransform.name != hoveringSlot.name)
+                if (hoveringSlot == null || slotTransform.GetInstanceID() != hoveringSlot.GetInstanceID())
                     hoveringSlot = slotTransform.GetComponent<CardSlot>();
+            }
+            else
+            {
+                hoveringSlot = null;
+            }
 
+            if (hoveringSlot != null && hoveringSlot.receiveCard)
+            {
+                //  Snap to slot
                 holdingCard.SetMoveTarget(hoveringSlot.transform.position);
             }
             else
@@ -60,6 +68,8 @@ public class MouseManager : MonoBehaviour
                 Vector3 hitPoint = ray.GetPoint(enter);
                 holdingCard.SetMoveTarget(hitPoint);
             }
+
+
         }
 
         if (Input.GetMouseButtonUp(0) && holdingCard != null)

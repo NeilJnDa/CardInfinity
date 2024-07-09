@@ -1,4 +1,6 @@
 ### 🐛 Fixes
 
-- disable GPU compilation when running on CPU (PR: #159)
+- Fix bugs in chat completion (PR: #176)
+- Call DontDestroyOnLoad on root to remove warning (PR: #174)
+
 

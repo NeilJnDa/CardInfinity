@@ -1,3 +1,18 @@
+## v2.0.2
+#### 🐛 Fixes
+
+- Fix bugs in chat completion (PR: #176)
+- Call DontDestroyOnLoad on root to remove warning (PR: #174)
+
+
+## v2.0.1
+#### 🚀 Features
+
+- Implement backend with DLLs (PR: #163)
+- Separate LLM from LLMClient functionality (PR: #163)
+- Add sample with RAG and LLM integration (PR: #170)
+
+
 ## v1.2.9
 #### 🐛 Fixes
 

@@ -32,7 +32,7 @@ public class CardMerger : MonoBehaviour
     [ReadOnly]
     private bool waitingForResponse = false;
 
-    public LLMClient llm;
+    public LLMCharacter llmCharacter;
     [TextArea(3, 5)]
     public string command = "";
 
@@ -48,7 +48,7 @@ public class CardMerger : MonoBehaviour
         card2 = slot2.card;
         string completeCommand = command + card1.CardInfo.ToJson() + card2.CardInfo.ToJson();
         Debug.Log(completeCommand);
-        _ = llm.Chat(completeCommand, OnAIReturnToken, OnAIComplete, false);
+        _ = llmCharacter.Chat(completeCommand, OnAIReturnToken, OnAIComplete, false);
         waitingForResponse = true;
     }
 

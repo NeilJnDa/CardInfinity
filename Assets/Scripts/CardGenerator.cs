@@ -13,7 +13,7 @@ public class CardGenerator : MonoBehaviour
     [ReadOnly]
     private bool waitingForResponse = false;
 
-    public LLMClient llm;
+    public LLMCharacter llmCharacter;
     [TextArea(3, 5)]
     public string command = "";
 
@@ -23,7 +23,7 @@ public class CardGenerator : MonoBehaviour
     [ButtonMethod]
     private void GenerateRequest()
     {
-        _ = llm.Chat(command, OnAIReturnToken, OnAIComplete, false);
+        _ = llmCharacter.Chat(command, OnAIReturnToken, OnAIComplete, false);
         waitingForResponse = true;
     }
 

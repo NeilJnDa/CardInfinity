@@ -5,6 +5,7 @@ using UnityEngine;
 using MyBox;
 using DG.Tweening;
 using System;
+using UnityEngine.EventSystems;
 
 public class CardSlot : MonoBehaviour
 {

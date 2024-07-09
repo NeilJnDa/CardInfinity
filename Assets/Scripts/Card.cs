@@ -5,8 +5,11 @@ using TMPro;
 using MyBox;
 using UnityEditor;
 using System;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-public class Card : MonoBehaviour
+public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField]
     private float lerpSpeed = 3f;
@@ -65,31 +68,42 @@ public class Card : MonoBehaviour
     {
         if(pickedUp)
         {
+            if (PointerManager.Instance.HoveringSlot != null && PointerManager.Instance.HoveringSlot.receiveCard)
+            {
+                targetPosition = PointerManager.Instance.HoveringSlot.transform.position;
+            }
+            else
+            {
+                Ray ray = PointerManager.Instance.CameraRay();
+                float enter = 0.0f;
+                var res = GameManager.Instance.CardHoverPlane.Raycast(ray, out enter);
+                Vector3 hitPoint = ray.GetPoint(enter);
+                targetPosition = hitPoint;
+            }
+
             mRigidBody.MovePosition(Vector3.Lerp(this.transform.position, targetPosition, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));        
         }
     }
 
-    public void PickUp()
+    private void PickUp()
     {
         pickedUp = true;
         overlappingSlot = null;
         currentSlot?.CardRemoved();
         currentSlot = null;
+        PointerManager.Instance.holdingCard = this;
+
     }
-    public void Drop()
+    private void Drop()
     {
         pickedUp = false;
+        PointerManager.Instance.holdingCard = null;
         if (overlappingSlot)
         {
             overlappingSlot.CardPlaced(this);
             this.currentSlot = overlappingSlot;
             overlappingSlot = null;
         }
-    }
-
-    public void SetMoveTarget(Vector3 position)
-    {
-        targetPosition = position;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -109,4 +123,17 @@ public class Card : MonoBehaviour
             overlappingSlot = null;
         }
     }
+
+    #region PointerEvents
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        PickUp();
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        Drop();
+    }
+
+    #endregion
 }

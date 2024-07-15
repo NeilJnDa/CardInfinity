@@ -18,6 +18,10 @@ public class CardSlot : MonoBehaviour
     [SerializeField]
     private Transform graphicTransform;
 
+    public void Initialize(bool receiveCard)
+    {
+        this.receiveCard = receiveCard;
+    }
     public void CardPlaced(Card card)
     {
         this.card = card;

@@ -37,7 +37,7 @@ public class PointerManager : MonoBehaviour
 
     [SerializeField]
     [ReadOnly]
-    public Card holdingCard;
+    private Card holdingCard;
 
 
     [field: SerializeField]
@@ -78,5 +78,13 @@ public class PointerManager : MonoBehaviour
     public Ray CameraRay()
     {
         return mainCamera.ScreenPointToRay(Input.mousePosition);
+    }
+    public void HoldCard(Card card)
+    {
+        this.holdingCard = card;
+    }
+    public void DropCard()
+    {
+        this.holdingCard = null;
     }
 }

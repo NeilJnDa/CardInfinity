@@ -38,4 +38,9 @@ public class GameManager : MonoBehaviour
             return new Plane(cardHoverPlaneTransform.up, cardHoverPlaneTransform.position);
         }
     }
+
+    public void EndRound()
+    {
+
+    }
 }

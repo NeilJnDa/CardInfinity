@@ -17,7 +17,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [ReadOnly]
     private bool pickedUp = false;
     [SerializeField]
-    [ReadOnly]
     private CardInfo cardInfo;
     public CardInfo CardInfo { get { return cardInfo; }}
 
@@ -51,6 +50,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField]
     [ReadOnly]
     private Vector3 targetPosition;
+    [SerializeField]
+    [ReadOnly]
+    private Quaternion targetRotation;
     private void Start()
     {
         mainCamera = Camera.main;
@@ -71,6 +73,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             if (PointerManager.Instance.HoveringSlot != null && PointerManager.Instance.HoveringSlot.receiveCard)
             {
                 targetPosition = PointerManager.Instance.HoveringSlot.transform.position;
+                targetRotation = PointerManager.Instance.HoveringSlot.transform.rotation;
             }
             else
             {
@@ -81,7 +84,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 targetPosition = hitPoint;
             }
 
-            mRigidBody.MovePosition(Vector3.Lerp(this.transform.position, targetPosition, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));        
+            mRigidBody.MovePosition(Vector3.Lerp(this.transform.position, targetPosition, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));
+            mRigidBody.MoveRotation(Quaternion.Lerp(this.transform.rotation, targetRotation, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));
         }
     }
 
@@ -91,19 +95,32 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         overlappingSlot = null;
         currentSlot?.CardRemoved();
         currentSlot = null;
-        PointerManager.Instance.holdingCard = this;
+        PointerManager.Instance.HoldCard(this);
 
     }
     private void Drop()
     {
         pickedUp = false;
-        PointerManager.Instance.holdingCard = null;
+        PointerManager.Instance.DropCard();
+
         if (overlappingSlot)
         {
+            if(CardsInHand.Instance.Cards.Contains(this)){
+                CardsInHand.Instance.RemoveCard(this);
+            }
             overlappingSlot.CardPlaced(this);
             this.currentSlot = overlappingSlot;
             overlappingSlot = null;
         }
+        else
+        {
+            if (!CardsInHand.Instance.Cards.Contains(this)){
+                CardsInHand.Instance.AddCard(this);
+            }
+        }
+
+        CardsInHand.Instance.OrganizeCardAnim();
+
     }
 
     private void OnTriggerEnter(Collider other)

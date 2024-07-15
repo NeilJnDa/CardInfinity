@@ -140,6 +140,7 @@ MonoBehaviour:
     health: 0
     description: 
   currentSlot: {fileID: 0}
+  overlappingSlot: {fileID: 0}
   nameText: {fileID: 1166915182470511909}
   hpText: {fileID: 3496563973629910430}
   descriptionText: {fileID: 911238363985298752}
@@ -168,7 +169,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112

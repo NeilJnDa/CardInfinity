@@ -35,13 +35,14 @@ public class PointerManager : MonoBehaviour
     }
     #endregion
 
+    // Pick up cards and drop to a slot
     [SerializeField]
     [ReadOnly]
     private Card holdingCard;
 
-
     [field: SerializeField]
     public CardSlot HoveringSlot { get; private set; }
+
     [SerializeField]
     private LayerMask slotLayer;
 
@@ -55,6 +56,7 @@ public class PointerManager : MonoBehaviour
 
     public void Update()
     {
+        //  Update the slot just under the pointer. Any script can access that.
         var target = CastRayFromMouse(slotLayer);
         if (HoveringSlot && target && HoveringSlot.GetInstanceID() == target.GetInstanceID()) return;
 
@@ -79,6 +81,7 @@ public class PointerManager : MonoBehaviour
     {
         return mainCamera.ScreenPointToRay(Input.mousePosition);
     }
+
     public void HoldCard(Card card)
     {
         this.holdingCard = card;

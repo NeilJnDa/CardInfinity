@@ -9,6 +9,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+public enum CardState
+{
+    Idle,
+    PickedUp,
+    FinishingMovingAfterDrop,
+}
 public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField]
@@ -17,7 +23,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool pickable = true;
     [SerializeField]
     [ReadOnly]
-    private bool pickedUp = false;
+    private CardState state = CardState.Idle;
+    
     [SerializeField]
     private CardInfo cardInfo;
     public CardInfo CardInfo { get { return cardInfo; }}
@@ -25,14 +32,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField]
     [ReadOnly]
     private CardSlot currentSlot = null;
-    /// <summary>
-    /// When it is moving, which slot is overlapped and could be placed, but not yet placed.
-    /// </summary>
-    [SerializeField]
-    [ReadOnly]
-    private CardSlot overlappingSlot = null;
-
-
 
     [Header("Reference")]
     [SerializeField]
@@ -59,7 +58,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         mainCamera = Camera.main;
         mRigidBody = GetComponent<Rigidbody>();
-
+        if (!this.cardInfo.Equals(default(CardInfo)))
+        {
+            Initialize(this.cardInfo, this.transform);
+        }
     }
     public void Initialize(CardInfo cardInfo, Transform cardInitialTransform, bool pickable = true)
     {
@@ -81,13 +83,15 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void FixedUpdate()
     {
-        if(pickedUp)
+        if(state == CardState.PickedUp)
         {
+            //  Move the a slot just for showing. Will not place it.
             if (PointerManager.Instance.HoveringSlot != null && PointerManager.Instance.HoveringSlot.receiveCard)
             {
-                targetPosition = PointerManager.Instance.HoveringSlot.transform.position;
+                targetPosition = PointerManager.Instance.HoveringSlot.transform.position - PointerManager.Instance.HoveringSlot.transform.forward * 0.07f;
                 targetRotation = PointerManager.Instance.HoveringSlot.transform.rotation;
             }
+            //  Or just follow mouse position
             else
             {
                 Ray ray = PointerManager.Instance.CameraRay();
@@ -99,13 +103,23 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             mRigidBody.MovePosition(Vector3.Lerp(this.transform.position, targetPosition, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));
             mRigidBody.MoveRotation(Quaternion.Lerp(this.transform.rotation, targetRotation, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));
         }
+        if(state == CardState.FinishingMovingAfterDrop)
+        {
+            mRigidBody.MovePosition(Vector3.Lerp(this.transform.position, targetPosition, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));
+            mRigidBody.MoveRotation(Quaternion.Lerp(this.transform.rotation, targetRotation, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));
+
+            if (Math.Abs(Vector3.Distance(this.transform.position, targetPosition)) < 1e-2)
+            {
+                //  Close enough to the target
+                state = CardState.Idle;
+            }
+        }
 
     }
 
     private void PickUp()
     {
-        pickedUp = true;
-        overlappingSlot = null;
+        state = CardState.PickedUp;
         currentSlot?.CardRemoved();
         currentSlot = null;
         PointerManager.Instance.HoldCard(this);
@@ -113,45 +127,30 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
     private void Drop()
     {
-        pickedUp = false;
         PointerManager.Instance.DropCard();
 
-        if (overlappingSlot)
+        //  If pointer is hovering on a slot, then this card will be placed there
+        CardSlot targetSlot = PointerManager.Instance.HoveringSlot;
+        if (targetSlot != null && targetSlot.receiveCard)
         {
             if(CardsInHand.Instance.Cards.Contains(this)){
                 CardsInHand.Instance.RemoveCard(this);
             }
-            overlappingSlot.CardPlaced(this);
-            this.currentSlot = overlappingSlot;
-            overlappingSlot = null;
+            targetSlot.CardPlaced(this);
+            targetPosition = PointerManager.Instance.HoveringSlot.transform.position;
+            this.currentSlot = targetSlot;
+            state = CardState.FinishingMovingAfterDrop;
+
         }
+        //  Otherwise, go back to the hand.
         else
         {
             if (!CardsInHand.Instance.Cards.Contains(this)){
                 CardsInHand.Instance.AddCard(this);
             }
+            state = CardState.Idle;
         }
-
         CardsInHand.Instance.OrganizeCardAnim();
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        var slot = other.GetComponent<CardSlot>(); 
-        if(slot != null && slot.receiveCard)
-        {
-            overlappingSlot = slot;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        var slot = other.GetComponent<CardSlot>();
-        if (slot != null && overlappingSlot == slot)
-        {
-            overlappingSlot = null;
-        }
     }
 
     #region PointerEvents

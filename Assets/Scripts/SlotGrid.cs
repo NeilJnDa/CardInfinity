@@ -2,11 +2,24 @@ using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
+[Serializable]
+public struct SlotItem
+{
+    public Vector2Int position;
+    public CardSlot slot;
+
+    public SlotItem (Vector2Int position, CardSlot slot)
+    {
+        this.position = position;
+        this.slot = slot;
+    }
+}
 public class SlotGrid : MonoBehaviour
 {
     [SerializeField]
@@ -23,7 +36,8 @@ public class SlotGrid : MonoBehaviour
     [SerializeField]
     private bool onlyFirstRowReceiveCards = true;
 
-    public Dictionary<Vector2Int, CardSlot> Slots { get; private set; }
+    [SerializeField]
+    private List <SlotItem> slots = new List<SlotItem>();
 
 #if UNITY_EDITOR
     [ButtonMethod]
@@ -43,9 +57,7 @@ public class SlotGrid : MonoBehaviour
             else
                 DestroyImmediate(transform.GetChild(i).gameObject);
         }
-
-        Slots = new Dictionary<Vector2Int, CardSlot>();
-
+        slots = new List<SlotItem>();
         for (int i = 0; i < numRows; i++)
         {
             for (int j = 0; j < numCols; j++)
@@ -57,10 +69,25 @@ public class SlotGrid : MonoBehaviour
                 {
                     cardSlot.Initialize(i == 0);
                 }
-                Slots.Add(new Vector2Int(i,j), go.GetComponent<CardSlot>());
-                
+                slots.Add(new SlotItem(new Vector2Int(i, j), go.GetComponent<CardSlot>()));            
             }
         }
+    }
+    public CardSlot GetSlot(Vector2Int position)
+    {
+        if(slots == null)
+        {
+            Debug.LogError("Slots in SlotGrid is not initialized.");
+            return null;
+        }
+        var slotItem = slots.Find(x => x.position == position);
+        if(slotItem.Equals (default(SlotItem)))
+        {
+            Debug.LogError("Can not find " + position + " in Slots");
+            return null;
+        }
+        return slotItem.slot;
+
     }
 
 

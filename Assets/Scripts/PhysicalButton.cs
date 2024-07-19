@@ -14,9 +14,11 @@ public class PhysicalButton : MonoBehaviour, IPointerClickHandler, IPointerUpHan
     private Vector3 initMovableLocalPosition;
     public UnityEvent OnButtonUp = new UnityEvent();
 
+    #pragma warning disable 0414
     [SerializeField]
     [ReadOnly]
     private bool pressing = false;
+    #pragma warning restore 0414
 
     private void Awake()
     {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 
 public class CardsInHand : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class CardsInHand : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(this.transform.root.gameObject);
         }
         else
         {
@@ -42,10 +43,20 @@ public class CardsInHand : MonoBehaviour
     [SerializeField]
     private List<Card> cards = new List<Card>();
 
+    private void Start()
+    {
+        if (cards.Any())
+        {
+            cards.ForEach(x=>x.Initialize(x.CardInfo, x.transform, true));
+        }
+    }
     public void AddCard(Card card)
     {
         if(card != null)
+        {
             cards.Add(card);
+            card.transform.parent = this.transform;
+        }
         OrganizeCardAnim();
 
     }

@@ -19,9 +19,11 @@ public class CardCombatJudge : MonoBehaviour
     [ReadOnly]
     private Card card2;
 
+#pragma warning disable 0414
     [SerializeField]
     [ReadOnly]
     private bool waitingForResponse = false;
+#pragma warning restore 0414
 
     public LLMCharacter llmCharacter;
     [TextArea(3, 5)]

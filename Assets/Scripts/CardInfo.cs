@@ -10,8 +10,18 @@ public struct CardInfo
     public int health;
     public string description;
 
+    public CardInfo(string name, int health, string description)
+    {
+        this.name = name;  
+        this.health = health;
+        this.description = description;
+    }
     public string ToJson()
     {
         return JsonUtility.ToJson(this);
+    }
+    public static CardInfo EmptyCardInfo()
+    {
+        return new CardInfo("___", 0, "");
     }
 }

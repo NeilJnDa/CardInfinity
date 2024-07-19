@@ -24,7 +24,25 @@ public class CardSlot : MonoBehaviour
     }
     public void CardPlaced(Card card)
     {
-        this.card = card;
+        if(this.card == null)
+        {
+            this.card = card;
+            card.transform.parent = this.transform;
+        }
+        else
+        {
+            //  Merge two cards
+            LLMManager.Instance.CardMerger.MergeCards(this.card.CardInfo, card.CardInfo, OnRequestComplete);
+            Deck.Instance.AddCard(this.card);
+            this.card = card;
+            this.card.Initialize(CardInfo.EmptyCardInfo(), this.transform);
+            receiveCard = false;
+        }
+    }
+    private void OnRequestComplete(CardInfo cardInfo)
+    {
+        this.card.Initialize(cardInfo, this.transform);
+        receiveCard = true;
     }
     public void CardRemoved()
     {

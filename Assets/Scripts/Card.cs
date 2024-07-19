@@ -14,6 +14,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField]
     private float lerpSpeed = 3f;
     [SerializeField]
+    private bool pickable = true;
+    [SerializeField]
     [ReadOnly]
     private bool pickedUp = false;
     [SerializeField]
@@ -57,15 +59,26 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         mainCamera = Camera.main;
         mRigidBody = GetComponent<Rigidbody>();
+
     }
-    public void Initialize(CardInfo cardInfo)
+    public void Initialize(CardInfo cardInfo, Transform cardInitialTransform, bool pickable = true)
     {
+        this.pickable = pickable;
         this.cardInfo = cardInfo;
         nameText.text = cardInfo.name;
         hpText.text = cardInfo.health.ToString();
         descriptionText.text = cardInfo.description;
-        
+        this.transform.position = cardInitialTransform.position;
+        this.transform.rotation = cardInitialTransform.rotation;
+        SetTargetTransform(cardInitialTransform);
     }
+
+    private void SetTargetTransform(Transform transform)
+    {
+        targetPosition = transform.position;
+        targetRotation = transform.rotation;
+    }
+
     private void FixedUpdate()
     {
         if(pickedUp)
@@ -83,10 +96,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 Vector3 hitPoint = ray.GetPoint(enter);
                 targetPosition = hitPoint;
             }
-
             mRigidBody.MovePosition(Vector3.Lerp(this.transform.position, targetPosition, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));
             mRigidBody.MoveRotation(Quaternion.Lerp(this.transform.rotation, targetRotation, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));
         }
+
     }
 
     private void PickUp()
@@ -144,12 +157,14 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     #region PointerEvents
     public void OnPointerDown(PointerEventData eventData)
     {
-        PickUp();
+        if(pickable)
+            PickUp();
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Drop();
+        if (pickable)
+            Drop();
     }
 
     #endregion

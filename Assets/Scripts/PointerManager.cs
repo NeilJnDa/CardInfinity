@@ -70,7 +70,7 @@ public class PointerManager : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, Time.deltaTime);
         if (Physics.Raycast(ray, out hit, 10f, layers))
         {
-            Debug.Log("Hit " + hit.collider.name);
+            //Debug.Log("Hit " + hit.collider.name);
             return hit.collider.transform;
         }
         return null;

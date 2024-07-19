@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using LLMUnity;
 using MyBox;
+using System;
 
 [ExecuteInEditMode]
 public class CardMerger : MonoBehaviour
 {
+    #region MergeFromTwoSlots
     [SerializeField]
     private Card cardPrefab;
     [SerializeField]
@@ -28,6 +30,24 @@ public class CardMerger : MonoBehaviour
     [ReadOnly]
     private Card outputCard;
 
+    [ButtonMethod]
+    private void GenerateRequest()
+    {
+        outputCard = null;
+        result = "";
+        card1 = slot1.card;
+        card2 = slot2.card;
+
+        MergeCards(card1.CardInfo, card2.CardInfo, RequestCompleted);
+    }
+    private void RequestCompleted(CardInfo cardInfo)
+    {
+        var card = Instantiate(cardPrefab, outputSlot.transform.position, outputSlot.transform.rotation);
+        card.Initialize(cardInfo, outputSlot.transform);
+        outputCard = card;
+    }
+    #endregion
+
     [SerializeField]
     [ReadOnly]
     private bool waitingForResponse = false;
@@ -39,19 +59,8 @@ public class CardMerger : MonoBehaviour
     [SerializeField]
     [TextArea(3, 5)]
     private string result = "";
-    [ButtonMethod]
-    private void GenerateRequest()
-    {
-        outputCard = null;
-        result = "";
-        card1 = slot1.card;
-        card2 = slot2.card;
-        string completeCommand = command + card1.CardInfo.ToJson() + card2.CardInfo.ToJson();
-        Debug.Log(completeCommand);
-        _ = llmCharacter.Chat(completeCommand, OnAIReturnToken, OnAIComplete, false);
-        waitingForResponse = true;
-    }
 
+    private Action<CardInfo> OnAICompleteEvent;
     private void OnAIReturnToken(string text)
     {
         result = text;
@@ -64,10 +73,23 @@ public class CardMerger : MonoBehaviour
         var cardInfo = JsonUtility.FromJson<CardInfo>(json);
         if (cardInfo.Equals(default(CardInfo)))
         {
-            Debug.LogWarning("From Json Failed");
+            Debug.LogError("From Json Failed");
         }
-        var card = Instantiate(cardPrefab, outputSlot.transform.position, cardPrefab.transform.rotation);
-        card.Initialize(cardInfo);
-        outputCard = card;
+
+        OnAICompleteEvent.Invoke(cardInfo);
+        OnAICompleteEvent = null;
+    }
+    public void MergeCards(CardInfo cardInfo1, CardInfo cardInfo2, Action<CardInfo> callback)
+    {
+        if (waitingForResponse)
+        {
+            Debug.LogWarning(this.name + " is waiting for response, submit request later");
+            return;
+        }
+        string completeCommand = command + cardInfo1.ToJson() + cardInfo2.ToJson();
+        Debug.Log(completeCommand);
+        _ = llmCharacter.Chat(completeCommand, OnAIReturnToken, OnAIComplete, false);
+        waitingForResponse = true;
+        OnAICompleteEvent += callback;
     }
 }

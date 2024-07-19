@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LLMUnity;
 using MyBox;
+using System;
 
 [ExecuteInEditMode]
 public class CardGenerator : MonoBehaviour
@@ -10,7 +11,7 @@ public class CardGenerator : MonoBehaviour
     [SerializeField]
     private Card cardPrefab;
     [SerializeField]
-    private Transform cardGenerateTransform;
+    private Transform cardDefaultTransform;
     [SerializeField]
     [ReadOnly]
     private bool waitingForResponse = false;
@@ -22,15 +23,27 @@ public class CardGenerator : MonoBehaviour
     [SerializeField]
     [TextArea(3, 5)]
     private string result = "";
-    [ButtonMethod]
-    public void GenerateRequest()
+
+    private Action<Card> OnAICompleteEvent;
+    private Transform cardInitialTransform;
+
+    public void GenerateNewCard(Transform initialTransform, Action<Card> callback)
     {
         if (!waitingForResponse)
         {
             _ = llmCharacter.Chat(command, OnAIReturnToken, OnAIComplete, false);
             waitingForResponse = true;
+            cardInitialTransform = initialTransform;
+            OnAICompleteEvent += callback;
         }
     }
+    public Card GenerateKnownCard(CardInfo cardInfo, Transform initialTransform, bool pickable)
+    {
+        var card = Instantiate(cardPrefab);
+        card.Initialize(cardInfo, initialTransform, pickable);
+        return card;
+    }
+
     private void Awake()
     {
         waitingForResponse = false;
@@ -50,9 +63,9 @@ public class CardGenerator : MonoBehaviour
             Debug.LogWarning("From Json Failed");
         }
         var card = Instantiate(cardPrefab);
-        card.transform.position = cardGenerateTransform.position;
-        card.transform.rotation = cardGenerateTransform.rotation;
-        card.Initialize(cardInfo);
+        card.Initialize(cardInfo, cardInitialTransform == null ? cardDefaultTransform : cardInitialTransform);
+        OnAICompleteEvent.Invoke(card);
+        OnAICompleteEvent = null;
     }
 
 

@@ -61,6 +61,8 @@ public class CardMerger : MonoBehaviour
     private string result = "";
 
     private Action<CardInfo> OnAICompleteEvent;
+    [SerializeField]
+    private int actionPointPerMerge = 2;
     private void OnAIReturnToken(string text)
     {
         result = text;
@@ -79,17 +81,19 @@ public class CardMerger : MonoBehaviour
         OnAICompleteEvent.Invoke(cardInfo);
         OnAICompleteEvent = null;
     }
-    public void MergeCards(CardInfo cardInfo1, CardInfo cardInfo2, Action<CardInfo> callback)
+    public bool MergeCards(CardInfo cardInfo1, CardInfo cardInfo2, Action<CardInfo> callback)
     {
         if (waitingForResponse)
         {
             Debug.LogWarning(this.name + " is waiting for response, submit request later");
-            return;
+            return false;
         }
+
         string completeCommand = command + cardInfo1.ToJson() + cardInfo2.ToJson();
         Debug.Log(completeCommand);
         _ = llmCharacter.Chat(completeCommand, OnAIReturnToken, OnAIComplete, false);
         waitingForResponse = true;
         OnAICompleteEvent += callback;
+        return true;
     }
 }

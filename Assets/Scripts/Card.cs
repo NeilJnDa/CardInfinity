@@ -8,6 +8,7 @@ using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public enum CardState
 {
@@ -58,13 +59,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         mainCamera = Camera.main;
         mRigidBody = GetComponent<Rigidbody>();
-        if (!this.cardInfo.Equals(default(CardInfo)))
-        {
-            Initialize(this.cardInfo, this.transform);
-        }
     }
     public void Initialize(CardInfo cardInfo, Transform cardInitialTransform, bool pickable = true)
     {
+        this.state = CardState.Idle;
         this.pickable = pickable;
         this.cardInfo = cardInfo;
         nameText.text = cardInfo.name;
@@ -75,7 +73,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         SetTargetTransform(cardInitialTransform);
     }
 
-    private void SetTargetTransform(Transform transform)
+    public void SetTargetTransform(Transform transform)
     {
         targetPosition = transform.position;
         targetRotation = transform.rotation;
@@ -129,28 +127,40 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         PointerManager.Instance.DropCard();
 
-        //  If pointer is hovering on a slot, then this card will be placed there
+        //  If pointer is hovering on a slot, then this card will try to be placed there
         CardSlot targetSlot = PointerManager.Instance.HoveringSlot;
-        if (targetSlot != null && targetSlot.receiveCard)
-        {
-            if(CardsInHand.Instance.Cards.Contains(this)){
-                CardsInHand.Instance.RemoveCard(this);
-            }
-            targetSlot.CardPlaced(this);
-            targetPosition = PointerManager.Instance.HoveringSlot.transform.position;
-            this.currentSlot = targetSlot;
-            state = CardState.FinishingMovingAfterDrop;
 
+        if (targetSlot != null && targetSlot.TryPlaceCard(this)) {
+            
+            if (CardsInHand.Instance.Cards.Contains(this))
+                CardsInHand.Instance.RemoveCard(this);
         }
         //  Otherwise, go back to the hand.
         else
         {
-            if (!CardsInHand.Instance.Cards.Contains(this)){
+            if (!CardsInHand.Instance.Cards.Contains(this))
+            {
                 CardsInHand.Instance.AddCard(this);
             }
             state = CardState.Idle;
         }
         CardsInHand.Instance.OrganizeCardAnim();
+
+    }
+    public void AddToDeck(Deck deck)
+    {
+        this.transform.DOKill();
+        this.state = CardState.Idle;
+        this.transform.parent = deck.transform;
+        this.transform.DOMove(deck.transform.position, 0.5f);
+    }
+    public void AddToSlot(CardSlot slot)
+    {
+        this.transform.DOKill();
+        this.transform.parent = slot.transform;
+        this.targetPosition = slot.transform.position;
+        this.currentSlot = slot;
+        state = CardState.FinishingMovingAfterDrop;
     }
 
     #region PointerEvents

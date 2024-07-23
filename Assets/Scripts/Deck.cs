@@ -35,9 +35,11 @@ public class Deck : MonoBehaviour
 
     [field: SerializeField]
     public List<Card> cards { get; private set; } = new List<Card>();
+    [SerializeField]
+    private int actionPointPerDraw = 1;
     public void DrawCard()
     {
-        if(cards.Any())
+        if(cards.Any() && GameManager.Instance.TryConsumeActionPoint(actionPointPerDraw))
         {
             CardsInHand.Instance.AddCard(cards.First());
             cards.RemoveAt(0);
@@ -53,7 +55,6 @@ public class Deck : MonoBehaviour
     public void AddCard(Card card)
     {
         cards.Add(card);
-        card.transform.parent = this.transform;
-        card.transform.DOMove(transform.position, 0.5f);
+        card.AddToDeck(this);
     }
 }

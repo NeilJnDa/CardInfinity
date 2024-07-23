@@ -54,6 +54,7 @@ public class CardSlot : MonoBehaviour
             Deck.Instance.AddCard(card);
 
             this.card = LLMManager.Instance.CardGenerator.GenerateKnownCard(CardInfo.EmptyCardInfo(), this.transform, false);
+            this.card.AddToSlot(this);
             receiveCard = false;
             return true;
         }

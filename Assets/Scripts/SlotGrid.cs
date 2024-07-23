@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -87,8 +88,17 @@ public class SlotGrid : MonoBehaviour
             return null;
         }
         return slotItem.slot;
-
     }
-
-
+    public CardSlot GetSlot(int x, int y)
+    {
+        return GetSlot(new Vector2Int(x, y));
+    }
+    public List<SlotItem> PlayerSlots()
+    {
+        return slots.FindAll(x => x.position.x == 0).OrderBy(x=> x.position.y).ToList();
+    }
+    public List<SlotItem> EnemySlots()
+    {
+        return slots.FindAll(x => x.position.x == 1).OrderBy(x => x.position.y).ToList();
+    }
 }

@@ -69,4 +69,13 @@ public class CardSlot : MonoBehaviour
     {
         card = null;
     }
+
+    /// <summary>
+    /// Should only be called when starting a game to place starter cards
+    /// </summary>
+    /// <param name="card"></param>
+    public void SetCardAtStart(Card card)
+    {
+        this.card = card;
+    }
 }

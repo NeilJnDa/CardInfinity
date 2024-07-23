@@ -1,23 +1,39 @@
 using LLMUnity;
 using MyBox;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CardCombatJudge : MonoBehaviour
 {
+    #region Debugging in inspector
     [SerializeField]
-    private CardSlot slot1;
+    CardInfo cardAttacking;
     [SerializeField]
-    private CardSlot slot2;
+    CardInfo cardAttcked;
 
-    [SerializeField]
-    [ReadOnly]
-    private Card card1;
+    [ButtonMethod]
+    private void GenerateRequest()
+    {
+        result = "";
+        string completeCommand = command + "Card1: " + cardAttacking.ToJson() + "Card2: " + cardAttcked.ToJson();
+        Debug.Log(completeCommand);
+        _ = llmCharacter.Chat(completeCommand, OnAIReturnToken, OnAIComplete, false);
+        waitingForResponse = true;
+    }
 
-    [SerializeField]
-    [ReadOnly]
-    private Card card2;
+    private void OnAIReturnToken(string text)
+    {
+        result = text;
+    }
+    private void OnAIComplete()
+    {
+        waitingForResponse = false;
+        var json = Utils.ExtractJSONString(result);
+    }
+    #endregion
+
 
 #pragma warning disable 0414
     [SerializeField]
@@ -32,31 +48,30 @@ public class CardCombatJudge : MonoBehaviour
     [SerializeField]
     [TextArea(3, 5)]
     private string result = "";
-    [ButtonMethod]
-    private void GenerateRequest()
+
+    private Action<string> OnAICompleteEvent;
+    public bool GenerateCardCombatInfo(CardInfo cardAttacking, CardInfo cardAttacked, Action<string> callback)
     {
-        result = "";
-        card1 = slot1.card;
-        card2 = slot2.card;
-        string completeCommand = command + "Card1: " + card1.CardInfo.ToJson() + "Card2: " + card2.CardInfo.ToJson();
+        if (waitingForResponse)
+        {
+            Debug.LogWarning(this.name + " is waiting for response, submit request later");
+            return false;
+        }
+
+        string completeCommand = "Card1: " + cardAttacking.ToJson() + "Card2: " + cardAttacked.ToJson() + command;
         Debug.Log(completeCommand);
-        _ = llmCharacter.Chat(completeCommand, OnAIReturnToken, OnAIComplete, false);
+        _ = llmCharacter.Chat(completeCommand, OnAIReturnToken, OnCombatAIComplete, false);
         waitingForResponse = true;
+        OnAICompleteEvent += callback;
+        return true;
     }
 
-    private void OnAIReturnToken(string text)
-    {
-        result = text;
-    }
-    private void OnAIComplete()
+    private void OnCombatAIComplete()
     {
         waitingForResponse = false;
         var json = Utils.ExtractJSONString(result);
-
-        var cardInfo = JsonUtility.FromJson<CardInfo>(json);
-        if (cardInfo.Equals(default(CardInfo)))
-        {
-            Debug.LogWarning("From Json Failed");
-        }
+        OnAICompleteEvent.Invoke(result);
+        OnAICompleteEvent = null;
     }
+
 }

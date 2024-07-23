@@ -979,7 +979,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481051599}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -3.237}
+  m_LocalPosition: {x: 0, y: 0, z: -1.408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -987,7 +987,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.388, y: 0.015}
+  m_AnchoredPosition: {x: 2.94, y: 0.01}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &481051601
@@ -1930,7 +1930,7 @@ PrefabInstance:
     - target: {fileID: 215428245106547926, guid: 5ee22a381871c8340b1b64c57543dfd8,
         type: 3}
       propertyPath: m_text
-      value: End
+      value: Reset
       objectReference: {fileID: 0}
     - target: {fileID: 1488186513615885493, guid: 5ee22a381871c8340b1b64c57543dfd8,
         type: 3}
@@ -1950,7 +1950,7 @@ PrefabInstance:
     - target: {fileID: 1488186513615885493, guid: 5ee22a381871c8340b1b64c57543dfd8,
         type: 3}
       propertyPath: OnButtonUp.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EndRound
+      value: ResetAll
       objectReference: {fileID: 0}
     - target: {fileID: 1488186513615885493, guid: 5ee22a381871c8340b1b64c57543dfd8,
         type: 3}
@@ -1975,7 +1975,7 @@ PrefabInstance:
     - target: {fileID: 5602333143700969983, guid: 5ee22a381871c8340b1b64c57543dfd8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.02
+      value: 0.352
       objectReference: {fileID: 0}
     - target: {fileID: 5602333143700969983, guid: 5ee22a381871c8340b1b64c57543dfd8,
         type: 3}
@@ -2975,11 +2975,83 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4511302558522978442, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: command
+      value: "Return only applied indexes and reasons in JSON. The keys are \u201Cindex\u201D
+        and \u201Creason\u201D. Do not include other texts."
+      objectReference: {fileID: 0}
     - target: {fileID: 7257705569479670476, guid: c2dc1dca1bd5c904997f127f291ed185,
         type: 3}
       propertyPath: cardDefaultTransform
       value: 
       objectReference: {fileID: 907768732}
+    - target: {fileID: 8695863367694647510, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: prompt
+      value: 'In a card game, your task is to predict what effects will happen when
+        Card1 attacks Card2. One attack can cause no effect or a few effects.
+
+        
+
+        There
+        are effects:
+
+        
+
+        1. Ignore: Card1 will ignore Card2 and
+        attack the card behind it. This is because Card1 can not interact with Card2
+        and will just go through it, for example, a Spear can not attack Air.
+
+        2.
+        Splash: Card1 will also attack the cards next the Card2 with half the damage
+        because the attack is split or splashed by the Card2, for example, Water
+        is splashed by Stone, or Arrow is bounced by an Armor.
+
+        3. Critical:
+        Twice Damage if Card1 is in an advantage attacking Card2 because Card1 can
+        notably damage Card2 in human intuition. For example, a Sword can critically
+        damage Fist (soft objects), or Water can critically damage Fire because Water
+        can put out Fire.
+
+        4. Nerf: Card1 deals half the damage because
+        Card1 can not affect Card2 notably. For example, a Axe is hard to damage
+        Iron or an Ice Storm is hard to damage a Witcher.
+
+        5. Triple: Card1
+        can attack three times according to its physical properties. For example,
+        Card1 is a crossbow shooting 3 arrows each time.
+
+        6. Disappear:
+        Card1 will disappear because the attack consumes itself. For example, Card1
+        is burnable Petrol or one-time use Bullet.
+
+        7. Split: Card1 will
+        split into two parts, each has half attribute value. For example Card1 is
+        Bacteria which will replicate itself, or Card1 can be Wood, this attack on
+        Power Saw breaks itself into two parts.
+
+        8. Heal: Card1 will heal
+        an amount of health because the attack has good outcomes for Card1 itself.
+        For example, Fire attacking Oxygen makes the Fire even bigger, or a Fish
+        attacking River makes the Fish even more comfortable.
+
+        9. Weak:
+        Card1 will get into a weak status and can not act in the next two rounds
+        if Card1 this attack consumes too much energy. For example, an attack from
+        a Battery will run out all electricity, or a Bull heavily attacking a Tiger
+        out of fear will make it weak.
+
+        
+
+        You should take card
+        name, material, physical properties, chemical properties, and especially
+        common knowledge into consideration. If the card is a creature you should
+        consider its personality.  You should creatively imagine what can happen
+        and always follow human intuition.
+
+'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

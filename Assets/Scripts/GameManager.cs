@@ -95,9 +95,13 @@ public class GameManager : MonoBehaviour
         actionPoint = actionPointPerRound;
         actionPointText.text = actionPoint.ToString();
     }
-    private void OnCombatJudgeComplete(string result)
+    private void OnCombatJudgeComplete(CardEffectInfos result)
     {
-        Debug.Log(result);
+        foreach(var effect in result.data)
+        {
+            Debug.Log(effect.ToJson());
+        }
+        //TODO: Invoke Effects
         completed = true;
     }
     public void ResetAll()

@@ -55,13 +55,8 @@ public class CardGenerator : MonoBehaviour
     private void OnAIComplete()
     {
         waitingForResponse = false;
-        var json = Utils.ExtractJSONString(result);
+        var cardInfo = Utils.FromJson<CardInfo>(result);
 
-        var cardInfo = JsonUtility.FromJson<CardInfo>(json);
-        if (cardInfo.Equals(default(CardInfo)))
-        {
-            Debug.LogWarning("From Json Failed");
-        }
         var card = Instantiate(cardPrefab);
         card.Initialize(cardInfo, cardInitialTransform == null ? cardDefaultTransform : cardInitialTransform);
         OnAICompleteEvent.Invoke(card);

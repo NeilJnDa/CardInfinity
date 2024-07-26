@@ -3194,8 +3194,9 @@ PrefabInstance:
     - target: {fileID: 4511302558522978442, guid: c2dc1dca1bd5c904997f127f291ed185,
         type: 3}
       propertyPath: command
-      value: "Return only applied indexes and reasons in JSON. The keys are \u201Cindex\u201D
-        and \u201Creason\u201D. Do not include other texts."
+      value: "Return in the below JSON format. Do not include other texts.\n\n{\n\t\"data\":
+        [\n\t{\n\t\t\"index\": \"\",\n\t\t\"reason\": \u201C\u201D\n\t},\n\t//...other
+        effects\n\t]\n}"
       objectReference: {fileID: 0}
     - target: {fileID: 7257705569479670476, guid: c2dc1dca1bd5c904997f127f291ed185,
         type: 3}

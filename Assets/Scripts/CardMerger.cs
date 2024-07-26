@@ -70,14 +70,7 @@ public class CardMerger : MonoBehaviour
     private void OnAIComplete()
     {
         waitingForResponse = false;
-        var json = Utils.ExtractJSONString(result);
-
-        var cardInfo = JsonUtility.FromJson<CardInfo>(json);
-        if (cardInfo.Equals(default(CardInfo)))
-        {
-            Debug.LogError("From Json Failed");
-        }
-
+        var cardInfo = Utils.FromJson<CardInfo>(result);
         OnAICompleteEvent.Invoke(cardInfo);
         OnAICompleteEvent = null;
     }

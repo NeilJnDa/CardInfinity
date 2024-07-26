@@ -163,6 +163,21 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         state = CardState.FinishingMovingAfterDrop;
     }
 
+    #region Combat
+    public bool DealDamage(int damage)
+    {
+
+        cardInfo.health -= damage;
+        if (cardInfo.health < 0)
+        {
+            //  Die
+        }
+        return true;
+
+        //else
+        //    return false;
+    }
+    #endregion
     #region PointerEvents
     public void OnPointerDown(PointerEventData eventData)
     {

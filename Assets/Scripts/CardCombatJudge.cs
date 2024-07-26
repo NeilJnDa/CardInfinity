@@ -30,7 +30,7 @@ public class CardCombatJudge : MonoBehaviour
     private void OnAIComplete()
     {
         waitingForResponse = false;
-        var json = Utils.ExtractJSONString(result);
+        var eventList = Utils.FromJson<CardEffectInfos>(result);
     }
     #endregion
 
@@ -49,8 +49,8 @@ public class CardCombatJudge : MonoBehaviour
     [TextArea(3, 5)]
     private string result = "";
 
-    private Action<string> OnAICompleteEvent;
-    public bool GenerateCardCombatInfo(CardInfo cardAttacking, CardInfo cardAttacked, Action<string> callback)
+    private Action<CardEffectInfos> OnAICompleteEvent;
+    public bool GenerateCardCombatInfo(CardInfo cardAttacking, CardInfo cardAttacked, Action<CardEffectInfos> callback)
     {
         if (waitingForResponse)
         {
@@ -69,8 +69,8 @@ public class CardCombatJudge : MonoBehaviour
     private void OnCombatAIComplete()
     {
         waitingForResponse = false;
-        var json = Utils.ExtractJSONString(result);
-        OnAICompleteEvent.Invoke(result);
+        var eventList = Utils.FromJson<CardEffectInfos>(result);
+        OnAICompleteEvent.Invoke(eventList);
         OnAICompleteEvent = null;
     }
 

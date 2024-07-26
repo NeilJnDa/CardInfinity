@@ -48,6 +48,8 @@ public class CardsInHand : MonoBehaviour
         if (cards.Any())
         {
             cards.ForEach(x=>x.Initialize(x.CardInfo, x.transform, true));
+            OrganizeCardAnim();
+
         }
     }
     public void AddCard(Card card)

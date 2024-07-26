@@ -2824,6 +2824,222 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937987729}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1938821676
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6631700897814719224}
+    m_Modifications:
+    - target: {fileID: 1944422981831956581, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_Name
+      value: Card (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407908904233122938, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: cardInfo.name
+      value: Earth
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407908904233122938, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: cardInfo.health
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.000000042329248
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.02000049
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.000000059604645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8673762861666993047, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 2606887888533567692, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8819396748040410136, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: ca04334bdcd68104ea1faef5f6834618, type: 3}
+--- !u!4 &1938821677 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+    type: 3}
+  m_PrefabInstance: {fileID: 1938821676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1938821678 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6407908904233122938, guid: ca04334bdcd68104ea1faef5f6834618,
+    type: 3}
+  m_PrefabInstance: {fileID: 1938821676}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9003b01d53b956b4bbfd89c4c064d003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &2001687587
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6631700897814719224}
+    m_Modifications:
+    - target: {fileID: 1944422981831956581, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_Name
+      value: Card (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407908904233122938, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: cardInfo.name
+      value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407908904233122938, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: cardInfo.health
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.000000042329248
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.02000049
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.000000059604645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8673762861666993047, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 2606887888533567692, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8819396748040410136, guid: ca04334bdcd68104ea1faef5f6834618,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: ca04334bdcd68104ea1faef5f6834618, type: 3}
+--- !u!4 &2001687588 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6732212444267054654, guid: ca04334bdcd68104ea1faef5f6834618,
+    type: 3}
+  m_PrefabInstance: {fileID: 2001687587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2001687589 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6407908904233122938, guid: ca04334bdcd68104ea1faef5f6834618,
+    type: 3}
+  m_PrefabInstance: {fileID: 2001687587}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9003b01d53b956b4bbfd89c4c064d003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2069862733 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3376843629999322762, guid: 9cb31a8111661004b9a14b1441e24889,
@@ -2986,22 +3202,39 @@ PrefabInstance:
       propertyPath: cardDefaultTransform
       value: 
       objectReference: {fileID: 907768732}
+    - target: {fileID: 8545674915790820124, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: prompt
+      value: "In a card game, your task is to merge two cards into one like alchemy.\nYour
+        should consider the properties of the card names in reality and decide the
+        value of the new card. The new name must be a common word for most of the
+        players. The new name must not be the same as either origianl card name.\n\nHere
+        are some good examples which consider the logical result of merging two objects:\nEarth
+        + Water = Plant\r\nPlant + Plant = Tree\r\nTree + Tree + Forest\r\nForest
+        + Forest = Jungle\r\nEarth + Fire = Lava\r\nLava + Water = Stone\r\nStone
+        + Wind = Sand\r\nFire + Sand + Glass\r\nFire + Wind = Smoke\r\nGlass + Smoke
+        = Mirror\n\nHere are some examples you should avoid. Combining two words
+        is not allowed:\nWater + Metal = WaterMetal (Not allowed)\nIce + Stone =
+        IceStone  (Not allowed)\n\nYou should return in strict JSON format like below.
+        Do not return other texts\r.\n\n{\r\n\"name\":\r // An alchemy result of
+        the original two cards.\n\"health\": //from 1 to 10\r\n}"
+      objectReference: {fileID: 0}
     - target: {fileID: 8695863367694647510, guid: c2dc1dca1bd5c904997f127f291ed185,
         type: 3}
       propertyPath: prompt
       value: 'In a card game, your task is to predict what effects will happen when
         Card1 attacks Card2. One attack can cause no effect or a few effects.
 
-        
+
 
         There
         are effects:
 
-        
 
-        1. Ignore: Card1 will ignore Card2 and
-        attack the card behind it. This is because Card1 can not interact with Card2
-        and will just go through it, for example, a Spear can not attack Air.
+
+        1. Ignore: Card1 will ignore Card2 and attack the
+        card behind it. This is because Card1 can not interact with Card2 and will
+        just go through it, for example, a Spear can not attack Air.
 
         2.
         Splash: Card1 will also attack the cards next the Card2 with half the damage
@@ -3014,41 +3247,40 @@ PrefabInstance:
         damage Fist (soft objects), or Water can critically damage Fire because Water
         can put out Fire.
 
-        4. Nerf: Card1 deals half the damage because
-        Card1 can not affect Card2 notably. For example, a Axe is hard to damage
-        Iron or an Ice Storm is hard to damage a Witcher.
+        4. Nerf: Card1 deals half the damage because Card1
+        can not affect Card2 notably. For example, a Axe is hard to damage Iron or
+        an Ice Storm is hard to damage a Witcher.
 
-        5. Triple: Card1
-        can attack three times according to its physical properties. For example,
-        Card1 is a crossbow shooting 3 arrows each time.
+        5. Triple: Card1 can attack
+        three times according to its physical properties. For example, Card1 is a
+        crossbow shooting 3 arrows each time.
 
-        6. Disappear:
-        Card1 will disappear because the attack consumes itself. For example, Card1
-        is burnable Petrol or one-time use Bullet.
+        6. Disappear: Card1 will disappear
+        because the attack consumes itself. For example, Card1 is burnable Petrol
+        or one-time use Bullet.
 
-        7. Split: Card1 will
-        split into two parts, each has half attribute value. For example Card1 is
-        Bacteria which will replicate itself, or Card1 can be Wood, this attack on
-        Power Saw breaks itself into two parts.
+        7. Split: Card1 will split into two parts,
+        each has half attribute value. For example Card1 is Bacteria which will replicate
+        itself, or Card1 can be Wood, this attack on Power Saw breaks itself into
+        two parts.
 
-        8. Heal: Card1 will heal
-        an amount of health because the attack has good outcomes for Card1 itself.
-        For example, Fire attacking Oxygen makes the Fire even bigger, or a Fish
-        attacking River makes the Fish even more comfortable.
+        8. Heal: Card1 will heal an amount of health because
+        the attack has good outcomes for Card1 itself. For example, Fire attacking
+        Oxygen makes the Fire even bigger, or a Fish attacking River makes the Fish
+        even more comfortable.
 
-        9. Weak:
-        Card1 will get into a weak status and can not act in the next two rounds
-        if Card1 this attack consumes too much energy. For example, an attack from
-        a Battery will run out all electricity, or a Bull heavily attacking a Tiger
-        out of fear will make it weak.
+        9. Weak: Card1 will get into a weak status
+        and can not act in the next two rounds if Card1 this attack consumes too
+        much energy. For example, an attack from a Battery will run out all electricity,
+        or a Bull heavily attacking a Tiger out of fear will make it weak.
 
-        
 
-        You should take card
-        name, material, physical properties, chemical properties, and especially
-        common knowledge into consideration. If the card is a creature you should
-        consider its personality.  You should creatively imagine what can happen
-        and always follow human intuition.
+
+        You
+        should take card name, material, physical properties, chemical properties,
+        and especially common knowledge into consideration. If the card is a creature
+        you should consider its personality.  You should creatively imagine what
+        can happen and always follow human intuition.
 
 '
       objectReference: {fileID: 0}
@@ -3410,12 +3642,12 @@ PrefabInstance:
     - target: {fileID: 3330036901668329087, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: cardInfo.name
-      value: Fire
+      value: Water
       objectReference: {fileID: 0}
     - target: {fileID: 3330036901668329087, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: cardInfo.health
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3771946747554877314, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
@@ -3425,26 +3657,49 @@ PrefabInstance:
     - target: {fileID: 5224820792965017366, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: cardInfo.name
-      value: Stone
+      value: Wood
       objectReference: {fileID: 0}
     - target: {fileID: 5224820792965017366, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: cardInfo.health
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6402722865585760242, guid: 56793f5c4036eac40a7db0ec4dd564f3,
+        type: 3}
+      propertyPath: cards.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402722865585760242, guid: 56793f5c4036eac40a7db0ec4dd564f3,
+        type: 3}
+      propertyPath: cards.Array.data[3]
+      value: 
+      objectReference: {fileID: 2001687589}
+    - target: {fileID: 6402722865585760242, guid: 56793f5c4036eac40a7db0ec4dd564f3,
+        type: 3}
+      propertyPath: cards.Array.data[4]
+      value: 
+      objectReference: {fileID: 1938821678}
     - target: {fileID: 7423771691960302394, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: cardInfo.name
-      value: Ice
+      value: Metal
       objectReference: {fileID: 0}
     - target: {fileID: 7423771691960302394, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: cardInfo.health
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1020109364472337273, guid: 56793f5c4036eac40a7db0ec4dd564f3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2001687588}
+    - targetCorrespondingSourceObject: {fileID: 1020109364472337273, guid: 56793f5c4036eac40a7db0ec4dd564f3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1938821677}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5166925553120789719, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
@@ -3483,6 +3738,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 56793f5c4036eac40a7db0ec4dd564f3, type: 3}
+--- !u!4 &6631700897814719224 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1020109364472337273, guid: 56793f5c4036eac40a7db0ec4dd564f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6631700897814719223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7081759910799970900
 PrefabInstance:
   m_ObjectHideFlags: 0

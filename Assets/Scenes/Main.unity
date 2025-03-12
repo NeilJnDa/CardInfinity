@@ -1656,6 +1656,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912388860}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &939773201 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+    type: 3}
+  m_PrefabInstance: {fileID: 132124712886806807}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &987129859
 GameObject:
   m_ObjectHideFlags: 0
@@ -3203,6 +3215,46 @@ PrefabInstance:
       propertyPath: cardDefaultTransform
       value: 
       objectReference: {fileID: 907768732}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: model
+      value: DeepSeek-R1-Distill-Llama-8B-Q4_K_M.gguf
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: contextSize
+      value: 16000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: chatTemplate
+      value: deepseek-r1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: numGPULayers
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: advancedOptions
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: embeddingLength
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: maxContextLength
+      value: 131072
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545674915790820124, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: _llm
+      value: 
+      objectReference: {fileID: 939773201}
     - target: {fileID: 8545674915790820124, guid: c2dc1dca1bd5c904997f127f291ed185,
         type: 3}
       propertyPath: prompt
@@ -3220,6 +3272,11 @@ PrefabInstance:
         Do not return other texts\r.\n\n{\r\n\"name\":\r // An alchemy result of
         the original two cards.\n\"health\": //from 1 to 10\r\n}"
       objectReference: {fileID: 0}
+    - target: {fileID: 8695863367694647510, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: _llm
+      value: 
+      objectReference: {fileID: 939773201}
     - target: {fileID: 8695863367694647510, guid: c2dc1dca1bd5c904997f127f291ed185,
         type: 3}
       propertyPath: prompt

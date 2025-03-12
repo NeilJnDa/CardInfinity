@@ -1,3 +1,158 @@
+## v2.4.2
+#### 🚀 Features
+
+- Integrate DeepSeek models (PR: #312)
+- Update LlamaLib to v1.2.3 (llama.cpp b4688) (PR: #312)
+- Drop CUDA 11.7.1 support (PR: #312)
+- Add warm-up function for provided prompt (PR: #301)
+- Add documentation in Unity tooltips (PR: #302)
+
+#### 🐛 Fixes
+
+- Fix code signing on iOS (PR: #298)
+- Persist debug mode and use of extras to the build (PR: #304)
+- Fix dependency resolution for full CUDA and vulkan architectures (PR: #313)
+
+
+## v2.4.1
+#### 🚀 Features
+
+- Static library linking on mobile (fixes iOS signing) (PR: #289)
+
+#### 🐛 Fixes
+
+- Fix support for extras (flash attention, iQ quants)  (PR: #292)
+
+
+## v2.4.0
+#### 🚀 Features
+
+- iOS deployment (PR: #267)
+- Improve building process (PR: #282)
+- Add structured output / function calling sample (PR: #281)
+- Update LlamaLib to v1.2.0 (llama.cpp b4218) (PR: #283)
+
+#### 🐛 Fixes
+
+- Clear temp build directory before building (PR: #278)
+
+#### 📦 General
+
+- Remove support for extras (flash attention, iQ quants) (PR: #284)
+- remove support for LLM base prompt (PR: #285)
+
+
+## v2.3.0
+#### 🚀 Features
+
+- Implement Retrieval Augmented Generation (RAG) in LLMUnity (PR: #246)
+
+#### 🐛 Fixes
+
+- Fixed build conflict, endless import of resources. (PR: #266)
+
+
+## v2.2.4
+#### 🚀 Features
+
+- Add Phi-3.5 and Llama 3.2 models (PR: #255)
+- Speedup LLMCharacter warmup (PR: #257)
+
+#### 🐛 Fixes
+
+- Fix handling of incomplete requests (PR: #251)
+- Fix Unity locking of DLLs during cross-platform build (PR: #252)
+- Allow spaces in lora paths (PR: #254)
+
+#### 📦 General
+
+- Set default context size to 8192 and allow to adjust with a UI slider (PR: #258)
+
+
+## v2.2.3
+#### 🚀 Features
+
+- LlamaLib v1.1.12: SSL certificate & API key for server, Support more AMD GPUs (PR: #241)
+- Server security with API key and SSL (PR: #238)
+- Show server command for easier deployment (PR #239)
+
+#### 🐛 Fixes
+
+- Fix multiple LLM crash on Windows (PR: #242)
+- Exclude system prompt from saving of chat history (PR: #240)
+
+
+## v2.2.2
+#### 🚀 Features
+
+- Allow to set the LLMCharacter slot (PR: #231)
+
+#### 🐛 Fixes
+
+- fix adding grammar from StreamingAssets (PR: #229)
+- fix library setup restart when interrupted (PR: #232)
+- Remove unnecessary Android linking in IL2CPP builds (PR: #233)
+
+
+## v2.2.1
+#### 🐛 Fixes
+
+- Fix naming showing full path when loading model (PR: #224)
+- Fix parallel prompts (PR: #226)
+
+
+## v2.2.0
+#### 🚀 Features
+
+- Implement embedding and lora adapter functionality (PR: #210)
+- Read context length and warn if it is very large (PR: #211)
+- Setup allowing to use extra features: flash attention and IQ quants (PR: #216)
+- Allow HTTP request retries for remote server (PR: #217)
+- Allow to set lora weights at startup, add unit test (PR: #219)
+- allow relative StreamingAssets paths for models (PR: #221)
+
+#### 🐛 Fixes
+
+- Fix set template for remote setup (PR: #208)
+- fix crash when stopping scene before LLM creation (PR: #214)
+
+#### 📦 General
+
+- Documentation/point to gguf format for lora (PR: #215)
+
+
+## v2.1.1
+#### 🐛 Fixes
+
+- Resolve build directory creation
+
+## v2.1.0
+#### 🚀 Features
+
+- Android deployment (PR: #194)
+- Allow to download models on startup with resumable download functionality (PR: #196)
+- LLM model manager (PR: #196)
+- Add Llama 3 7B and Qwen2 0.5B models (PR: #198)
+- Start LLM always asynchronously (PR: #199)
+- Add contributing guidelines (PR: #201)
+
+## v2.0.3
+#### 🚀 Features
+
+- Add LLM selector in Inspector mode (PR: #182)
+- Allow to save chat history at custom path (PR: #179)
+- Use asynchronous startup by default (PR: #186)
+- Assign LLM if not set according to the scene and hierarchy (PR: #187)
+- Allow to set log level (PR: #189)
+- Allow to add callback functions for error messages (PR: #190)
+- Allow to set a LLM base prompt for all LLMCharacter objects (PR: #192)
+
+#### 🐛 Fixes
+
+- set higher priority for mac build with Accelerate than without (PR: #180)
+- Fix duplicate bos warning
+
+
 ## v2.0.2
 #### 🐛 Fixes
 

@@ -45,6 +45,11 @@ public class PointerManager : MonoBehaviour
 
     [SerializeField]
     private LayerMask slotLayer;
+    [field: SerializeField]
+    public Card HoveringCard { get; private set; }
+    [SerializeField]
+
+    private LayerMask cardLayer;
 
     //  Local cache
     private Camera mainCamera;
@@ -64,6 +69,19 @@ public class PointerManager : MonoBehaviour
             HoveringSlot = null;
         else
             HoveringSlot = target.GetComponent<CardSlot>();
+
+
+        //  Update the card just under the pointer. Any script can access that.
+        target = CastRayFromMouse(cardLayer);
+        if (HoveringCard && target && HoveringCard.GetInstanceID() == target.GetInstanceID()) return;
+
+        if (target == null)
+            HoveringCard = null;
+        else
+        {
+            HoveringCard = target.GetComponent<Card>();
+            HoveringCard.HoverAndFloat();
+        }
     }
     Transform CastRayFromMouse(LayerMask layers)
     {

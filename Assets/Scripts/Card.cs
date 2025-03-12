@@ -55,9 +55,29 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField]
     [ReadOnly]
     private Quaternion targetRotation;
+
+    [Foldout("Hover Offset", true)]
     [SerializeField]
-    [ReadOnly]
-    private Vector3 targetScale;
+    private float hoverOffset = 0.1f;
+    [SerializeField]
+    private Transform graphicsToFloat;
+    
+    private IEnumerator endHoverReturnCoroutineInst = null;
+    public void HoverAndFloat(){
+        if(state == CardState.Idle){
+            if(endHoverReturnCoroutineInst!=null) 
+                StopCoroutine(endHoverReturnCoroutineInst);
+            graphicsToFloat.localPosition = new Vector3(0, 0, - hoverOffset);
+            endHoverReturnCoroutineInst = EndHoverReturnCoroutine() as IEnumerator;
+            StartCoroutine(endHoverReturnCoroutineInst);
+        }
+    }
+
+    IEnumerator EndHoverReturnCoroutine(){
+        yield return new WaitForEndOfFrame();
+        graphicsToFloat.localPosition = Vector3.zero;
+    } 
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -80,7 +100,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         targetPosition = transform.position;
         targetRotation = transform.rotation;
-        targetScale = transform.localScale;
     }
 
     private void FixedUpdate()

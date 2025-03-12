@@ -47739,6 +47739,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PointerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4526046871515816321, guid: 5139d29031aadcb408c62e3222e3f15e,
+        type: 3}
+      propertyPath: cardLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 7889915666385265847, guid: 5139d29031aadcb408c62e3222e3f15e,
         type: 3}
       propertyPath: m_LocalPosition.x

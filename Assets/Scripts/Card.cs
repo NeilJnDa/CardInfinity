@@ -55,6 +55,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField]
     [ReadOnly]
     private Quaternion targetRotation;
+    [SerializeField]
+    [ReadOnly]
+    private Vector3 targetScale;
     private void Start()
     {
         mainCamera = Camera.main;
@@ -77,13 +80,14 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         targetPosition = transform.position;
         targetRotation = transform.rotation;
+        targetScale = transform.localScale;
     }
 
     private void FixedUpdate()
     {
         if(state == CardState.PickedUp)
         {
-            //  Move the a slot just for showing. Will not place it.
+            //  Move to a slot just for showing. Will not place it.
             if (PointerManager.Instance.HoveringSlot != null && PointerManager.Instance.HoveringSlot.receiveCard)
             {
                 targetPosition = PointerManager.Instance.HoveringSlot.transform.position - PointerManager.Instance.HoveringSlot.transform.forward * 0.07f;
@@ -97,6 +101,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 var res = GameManager.Instance.CardHoverPlane.Raycast(ray, out enter);
                 Vector3 hitPoint = ray.GetPoint(enter);
                 targetPosition = hitPoint;
+                targetRotation = CardsInHand.Instance.transform.rotation;
             }
             mRigidBody.MovePosition(Vector3.Lerp(this.transform.position, targetPosition, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));
             mRigidBody.MoveRotation(Quaternion.Lerp(this.transform.rotation, targetRotation, Mathf.Clamp01(Time.deltaTime * lerpSpeed)));

@@ -35,7 +35,7 @@ public class CardsInHand : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private float spacing = 0.1f;
+    private float totalWidth = 5f;
     [SerializeField]
     private float depthSpacing = 0.01f;
 
@@ -76,9 +76,10 @@ public class CardsInHand : MonoBehaviour
     [ButtonMethod]
     public void OrganizeCardAnim()
     {
-        Vector3 startingPosition = this.transform.position - new Vector3(cards.Count / 2 * spacing, 0, 0); 
+        Vector3 startingPosition = this.transform.position - new Vector3(totalWidth / 2f , 0, 0); 
+        float spacing = totalWidth / cards.Count;
         for(int i = 0; i < cards.Count; i++)
-        {
+        {   
             cards[i].transform.DOMove(startingPosition + new Vector3(i * spacing, 0, 0) + this.transform.forward * i * depthSpacing, 0.3f);
             cards[i].transform.DORotateQuaternion(this.transform.rotation, 0.3f);
         }

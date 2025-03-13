@@ -64,7 +64,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     
     private IEnumerator endHoverReturnCoroutineInst = null;
     public void HoverAndFloat(){
-        if(state == CardState.Idle){
+        if(pickable){
             if(endHoverReturnCoroutineInst!=null) 
                 StopCoroutine(endHoverReturnCoroutineInst);
             graphicsToFloat.localPosition = new Vector3(0, 0, - hoverOffset);
@@ -82,6 +82,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         mainCamera = Camera.main;
         mRigidBody = GetComponent<Rigidbody>();
+        Initialize(cardInfo, this.transform, pickable);
     }
     public void Initialize(CardInfo cardInfo, Transform cardInitialTransform, bool pickable = true)
     {

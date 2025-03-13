@@ -61,6 +61,24 @@ public class GameManager : MonoBehaviour
         StartGame();
 
     }
+
+    #region Round
+    public void StartRound(int numEmptyCards = 0){
+        StartCoroutine(StartRoundCoroutine(numEmptyCards));
+
+    }
+    IEnumerator StartRoundCoroutine(int numEmptyCards = 0){
+        for(int i = 0; i < 3 - numEmptyCards; i++){
+            Deck.Instance.DrawCard();
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        for(int i = 0; i < numEmptyCards; i++){
+            var card = LLMManager.Instance.CardGenerator.GenerateKnownCard(CardInfo.EmptyCardInfo(), Deck.Instance.transform, true);
+            CardsInHand.Instance.AddCard(card);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
     public void EndRound()
     {
         StartCoroutine(EndRoundExecutor());
@@ -92,6 +110,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    #endregion
     private void OnCombatJudgeComplete(CardEffectInfos result)
     {
         foreach(var effect in result.data)
@@ -134,11 +153,12 @@ public class GameManager : MonoBehaviour
         card = LLMManager.Instance.CardGenerator.GenerateKnownCard(new CardInfo("Wind", 5, "The wind blown by the dragon's wings."), slotGrid.GetSlot(pos)?.transform, false);
         slotGrid.GetSlot(pos)?.SetCardAtStart(card);
         yield return new WaitForSeconds(2f);
-        
+
         SwitchToOverviewCamera();
         yield return new WaitForSeconds(0.5f);
         PointerManager.Instance.Interactable = true;
 
+        StartRound();
     }
     #endregion
     #region Camera

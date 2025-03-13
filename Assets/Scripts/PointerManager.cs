@@ -35,6 +35,23 @@ public class PointerManager : MonoBehaviour
     }
     #endregion
 
+    public bool Interactable {
+        get{
+            return interactable;
+        }
+        set{
+            interactable = value;
+            if(interactable == false){
+                HoveringSlot = null;
+                holdingCard = null;
+                HoveringCard = null;
+            }
+        }
+    }
+    [SerializeField]
+    [ReadOnly]
+    private bool interactable = false;
+
     // Pick up cards and drop to a slot
     [SerializeField]
     [ReadOnly]

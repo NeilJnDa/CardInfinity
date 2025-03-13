@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,11 +37,13 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    [Header("Camera")]
     [SerializeField]
-    private Transform cardHoverPlaneTransform;
+    private Cinemachine.CinemachineVirtualCamera overviewwVCamera;
     [SerializeField]
-    private SlotGrid slotGrid;
+    private Cinemachine.CinemachineVirtualCamera cardPlayVCamera;
 
+    [Header("Action Point")]
     [SerializeField]
     [ReadOnly]
     private int actionPoint = 0;
@@ -48,6 +51,13 @@ public class GameManager : MonoBehaviour
     private int actionPointPerRound = 5;
     [SerializeField]
     private TMP_Text actionPointText;
+
+    [Header("Others")]
+    [SerializeField]
+    private Transform cardHoverPlaneTransform;
+    [SerializeField]
+    private SlotGrid slotGrid;
+
     public Plane CardHoverPlane
     {
         get
@@ -108,17 +118,40 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    #region Game Start
     public void StartGame()
     {
+        StartCoroutine(StartGameCoroutine());
+    }
+    IEnumerator StartGameCoroutine(){
+        PointerManager.Instance.Interactable = false;
+        SwitchToOverviewCamera();
+        yield return new WaitForSeconds(0.5f);
+        
+        //Overview Do something
+
+        SwitchToCardPlayCamera();
+        yield return new WaitForSeconds(1f);
+
         var pos = new Vector2Int(1, 1);
         var card = LLMManager.Instance.CardGenerator.GenerateKnownCard(new CardInfo("Dragon", 20, "A ferocious dragon you must defeat."), slotGrid.GetSlot(pos)?.transform, false);
         slotGrid.GetSlot(pos)?.SetCardAtStart(card);
 
+        yield return new WaitForSeconds(2f);
+
+              
         pos = new Vector2Int(1, 2);
         card = LLMManager.Instance.CardGenerator.GenerateKnownCard(new CardInfo("Wind", 5, "The wind blown by the dragon's wings."), slotGrid.GetSlot(pos)?.transform, false);
         slotGrid.GetSlot(pos)?.SetCardAtStart(card);
 
+        yield return new WaitForSeconds(2f);
+        SwitchToOverviewCamera();
+        yield return new WaitForSeconds(0.5f);
+        PointerManager.Instance.Interactable = true;
+
     }
+    #endregion
+
     public bool HasEnoughActionPoint(int leastPoint)
     {
         return actionPoint >= leastPoint;
@@ -134,4 +167,17 @@ public class GameManager : MonoBehaviour
             return true;
         }
     }
+
+    #region Camera
+    public void SwitchToOverviewCamera()
+    {
+        overviewwVCamera.Priority = 10;
+        cardPlayVCamera.Priority = 0;
+    }
+    public void SwitchToCardPlayCamera()
+    {
+        overviewwVCamera.Priority = 0;
+        cardPlayVCamera.Priority = 10;
+    }
+    #endregion
 }

@@ -8437,6 +8437,31 @@ PrefabInstance:
       propertyPath: _llm
       value: 
       objectReference: {fileID: 350497750}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: model
+      value: DeepSeek-R1-Distill-Llama-8B-Q4_K_M.gguf
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: contextSize
+      value: 26288
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: chatTemplate
+      value: deepseek-r1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: embeddingLength
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390691438434399019, guid: c2dc1dca1bd5c904997f127f291ed185,
+        type: 3}
+      propertyPath: maxContextLength
+      value: 131072
+      objectReference: {fileID: 0}
     - target: {fileID: 8545674915790820124, guid: c2dc1dca1bd5c904997f127f291ed185,
         type: 3}
       propertyPath: _llm
@@ -21803,7 +21828,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -47831,22 +47856,22 @@ PrefabInstance:
     - target: {fileID: 1721686261993442705, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.7
+      value: 2.24
       objectReference: {fileID: 0}
     - target: {fileID: 1721686261993442705, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.48
+      value: -4.44
       objectReference: {fileID: 0}
     - target: {fileID: 1721686261993442705, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.79950446
+      value: 0.9606106
       objectReference: {fileID: 0}
     - target: {fileID: 1721686261993442705, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.6006602
+      value: 0.2778979
       objectReference: {fileID: 0}
     - target: {fileID: 1721686261993442705, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
@@ -48033,6 +48058,16 @@ PrefabInstance:
       propertyPath: slotGrid
       value: 
       objectReference: {fileID: 779213872}
+    - target: {fileID: 3376843629999322762, guid: 9cb31a8111661004b9a14b1441e24889,
+        type: 3}
+      propertyPath: cardPlayVCamera
+      value: 
+      objectReference: {fileID: 976543883}
+    - target: {fileID: 3376843629999322762, guid: 9cb31a8111661004b9a14b1441e24889,
+        type: 3}
+      propertyPath: overviewwVCamera
+      value: 
+      objectReference: {fileID: 269385298}
     - target: {fileID: 5356556601547326996, guid: 9cb31a8111661004b9a14b1441e24889,
         type: 3}
       propertyPath: m_Name

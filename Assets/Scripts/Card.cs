@@ -78,6 +78,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         graphicsToFloat.localPosition = Vector3.zero;
     } 
 
+
     private void Start()
     {
         mainCamera = Camera.main;

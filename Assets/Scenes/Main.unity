@@ -2143,6 +2143,11 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 5958438921693756439, guid: 9a6c4fb8da5cd914dbf4cc1cb248f22b,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 513
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16919,7 +16924,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 513
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -48745,7 +48750,7 @@ PrefabInstance:
     - target: {fileID: 4353576103407286126, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}
       propertyPath: m_DefaultBlend.m_Time
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6402722865585760242, guid: 56793f5c4036eac40a7db0ec4dd564f3,
         type: 3}

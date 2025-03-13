@@ -46098,7 +46098,7 @@ GameObject:
   - component: {fileID: 2053958789}
   - component: {fileID: 2053958788}
   m_Layer: 0
-  m_Name: Area Light
+  m_Name: CardLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46154,7 +46154,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.3
   m_Range: 2.02
   m_SpotAngle: 60.553238
   m_InnerSpotAngle: 0
@@ -48421,7 +48421,7 @@ PrefabInstance:
     - target: {fileID: 2628876958462341737, guid: 68092724696887846854abcd60592b9a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: 0.078
       objectReference: {fileID: 0}
     - target: {fileID: 2628876958462341737, guid: 68092724696887846854abcd60592b9a,
         type: 3}

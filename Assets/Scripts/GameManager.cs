@@ -43,15 +43,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Cinemachine.CinemachineVirtualCamera cardPlayVCamera;
 
-    [Header("Action Point")]
-    [SerializeField]
-    [ReadOnly]
-    private int actionPoint = 0;
-    [SerializeField]
-    private int actionPointPerRound = 5;
-    [SerializeField]
-    private TMP_Text actionPointText;
-
     [Header("Others")]
     [SerializeField]
     private Transform cardHoverPlaneTransform;
@@ -68,8 +59,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartGame();
-        actionPoint = actionPointPerRound;
-        actionPointText.text = actionPoint.ToString();
 
     }
     public void EndRound()
@@ -102,8 +91,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        actionPoint = actionPointPerRound;
-        actionPointText.text = actionPoint.ToString();
     }
     private void OnCombatJudgeComplete(CardEffectInfos result)
     {
@@ -151,23 +138,6 @@ public class GameManager : MonoBehaviour
 
     }
     #endregion
-
-    public bool HasEnoughActionPoint(int leastPoint)
-    {
-        return actionPoint >= leastPoint;
-    }
-    public bool TryConsumeActionPoint(int point)
-    {
-        if (actionPoint - point < 0)
-            return false;
-        else
-        {
-            actionPoint -= point;
-            actionPointText.text = actionPoint.ToString();
-            return true;
-        }
-    }
-
     #region Camera
     public void SwitchToOverviewCamera()
     {

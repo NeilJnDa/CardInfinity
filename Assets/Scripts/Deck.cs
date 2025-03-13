@@ -39,7 +39,7 @@ public class Deck : MonoBehaviour
     private int actionPointPerDraw = 1;
     public void DrawCard()
     {
-        if(cards.Any() && GameManager.Instance.TryConsumeActionPoint(actionPointPerDraw))
+        if(cards.Any())
         {
             CardsInHand.Instance.AddCard(cards.First());
             cards.RemoveAt(0);

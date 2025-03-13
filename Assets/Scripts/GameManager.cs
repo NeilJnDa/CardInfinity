@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         //Overview Do something
 
         SwitchToCardPlayCamera();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         var pos = new Vector2Int(1, 1);
         var card = LLMManager.Instance.CardGenerator.GenerateKnownCard(new CardInfo("Dragon", 20, "A ferocious dragon you must defeat."), slotGrid.GetSlot(pos)?.transform, false);
@@ -126,12 +126,15 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-              
+        pos = new Vector2Int(1, 0);
+        card = LLMManager.Instance.CardGenerator.GenerateKnownCard(new CardInfo("Wind", 5, "The wind blown by the dragon's wings."), slotGrid.GetSlot(pos)?.transform, false);
+        slotGrid.GetSlot(pos)?.SetCardAtStart(card);      
+        yield return new WaitForSeconds(1f);
         pos = new Vector2Int(1, 2);
         card = LLMManager.Instance.CardGenerator.GenerateKnownCard(new CardInfo("Wind", 5, "The wind blown by the dragon's wings."), slotGrid.GetSlot(pos)?.transform, false);
         slotGrid.GetSlot(pos)?.SetCardAtStart(card);
-
         yield return new WaitForSeconds(2f);
+        
         SwitchToOverviewCamera();
         yield return new WaitForSeconds(0.5f);
         PointerManager.Instance.Interactable = true;

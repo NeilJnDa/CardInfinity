@@ -45,10 +45,8 @@ public class CardSlot : MonoBehaviour
             return false;
         }
         //  Already has a card, will try to merge
-        else if (GameManager.Instance.HasEnoughActionPoint(2)
-            && LLMManager.Instance.CardMerger.MergeCards(this.card.CardInfo, card.CardInfo, OnRequestComplete))
+        else if (LLMManager.Instance.CardMerger.MergeCards(this.card.CardInfo, card.CardInfo, OnRequestComplete))
         {
-            GameManager.Instance.TryConsumeActionPoint(2);
             //  Merge two cards
             Deck.Instance.AddCard(this.card);
             Deck.Instance.AddCard(card);

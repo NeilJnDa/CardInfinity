@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    [Header("Game Settings")]
+    [SerializeField]
+    private bool hasStarted = false;
+
     [Header("Camera")]
     [SerializeField]
     private Cinemachine.CinemachineVirtualCamera overviewwVCamera;
@@ -48,6 +52,8 @@ public class GameManager : MonoBehaviour
     private Transform cardHoverPlaneTransform;
     [SerializeField]
     private SlotGrid slotGrid;
+    [SerializeField]
+    private TextBoard textBoard;
 
     public Plane CardHoverPlane
     {
@@ -58,10 +64,16 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        StartGame();
-
+        SwitchToOverviewCamera();
+        textBoard.ShowTextBoard("Press any key to start...");
     }
-
+    void Update()
+    {
+        if(!hasStarted && Input.anyKey){
+            StartGame();
+            hasStarted = true;
+        }
+    }
     #region Round
     public void StartRound(int numEmptyCards = 0){
         StartCoroutine(StartRoundCoroutine(numEmptyCards));
@@ -130,19 +142,15 @@ public class GameManager : MonoBehaviour
         StartCoroutine(StartGameCoroutine());
     }
     IEnumerator StartGameCoroutine(){
+        textBoard.HideTextBoard();
         PointerManager.Instance.Interactable = false;
-        SwitchToOverviewCamera();
-        yield return new WaitForSeconds(0.5f);
-        
-        //Overview Do something
-
         SwitchToCardPlayCamera();
         yield return new WaitForSeconds(0.5f);
 
         var pos = new Vector2Int(1, 1);
         var card = LLMManager.Instance.CardGenerator.GenerateKnownCard(new CardInfo("Dragon", 20, "A ferocious dragon you must defeat."), slotGrid.GetSlot(pos)?.transform, false);
         slotGrid.GetSlot(pos)?.SetCardAtStart(card);
-
+        
         yield return new WaitForSeconds(0.5f);
 
         pos = new Vector2Int(1, 0);
